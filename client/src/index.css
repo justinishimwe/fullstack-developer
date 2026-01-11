@@ -15,8 +15,8 @@
   --secondary: 220 14% 96%;
   --secondary-foreground: 230 40% 20%;
   
-  /* Background: Crisp White / Very Subtle Cool Grey */
-  --background: 220 20% 99%; 
+  /* Background: Subtle Cool Grey to reduce harsh white */
+  --background: 220 20% 97%; 
   --foreground: 230 40% 15%;
   
   /* Muted: For secondary text */
@@ -32,8 +32,8 @@
   --destructive-foreground: 0 0% 100%;
   
   /* Borders & Inputs */
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
+  --border: 220 13% 88%;
+  --input: 220 13% 88%;
   --ring: 230 65% 55%;
   
   /* Cards */
