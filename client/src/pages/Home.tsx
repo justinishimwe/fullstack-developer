@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
-import { ArrowDown, Code, Server, Database, Globe, Briefcase, Calendar, Download } from "lucide-react";
+import { ArrowDown, Code, Server, Database, Globe, Briefcase, Calendar, Download, Github, Mail } from "lucide-react";
 
 export default function Home() {
   const { data: projects, isLoading: projectsLoading } = useProjects();
