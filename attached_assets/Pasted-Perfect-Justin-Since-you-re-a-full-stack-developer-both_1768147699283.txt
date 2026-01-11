@@ -1,0 +1,71 @@
+Perfect, Justin! 😎 Since you’re a full-stack developer (both frontend & backend), you need a portfolio AI prompt that highlights your skills, projects, and experience in a way that can generate a professional-looking portfolio website. I’ll make it detailed and AI-ready, so you can use it in tools like ChatGPT, MidJourney for designs, or code-generating AIs.
+
+Here’s a ready-to-use AI prompt for you:
+
+AI Portfolio Prompt for Justin (Full-Stack Developer)
+
+"Create a professional personal portfolio website for a full-stack software developer named Justin. The website should be modern, visually appealing, and fully responsive on desktop and mobile. Include the following sections:
+
+Home / Hero Section
+
+A greeting like: 'Hi, I’m Justin – Full-Stack Developer'
+
+Short tagline: 'I build scalable and responsive web applications with both frontend and backend expertise.'
+
+Include a professional-looking hero image or illustration of coding / technology.
+
+About Me
+
+Brief introduction about Justin
+
+Skills in frontend: HTML, CSS, JavaScript, React, Tailwind (or others)
+
+Skills in backend: Node.js, Express, MongoDB, SQL, APIs
+
+Highlight ability to work on end-to-end projects, problem-solving, and collaboration.
+
+Projects / Portfolio
+
+Showcase 3–6 projects with:
+
+Project name and description
+
+Technologies used
+
+Link to live demo and GitHub repository
+
+Optional screenshot or mockup image
+
+Projects should demonstrate both frontend and backend work.
+
+Skills / Tech Stack
+
+Separate frontend and backend skills visually
+
+Include tools like Git, GitHub, VS Code, Postman, Figma (if used)
+
+Experience / Work (optional)
+
+Brief list of internships, freelance projects, or company experience
+
+Contact / Call-to-Action
+
+Contact form with Name, Email, Message
+
+Links to GitHub, LinkedIn, and email
+
+Optional: download CV button
+
+Design Style:
+
+Clean, modern, minimalistic, professional
+
+Use soft colors with contrasting buttons
+
+Smooth animations and hover effects
+
+Focus on readability and user experience
+
+Include sections with cards, grids, and modern UI patterns
+
+Generate full HTML, CSS, and JavaScript code for the website (or React if possible) ready to deploy. Make it suitable for a professional portfolio showing Justin as a skilled full-stack developer."
