@@ -1,10 +1,22 @@
-[build]
-  command = "npm run build"
-  publish = "dist"
+﻿[build]
+  command = "cd client && npm ci && npm run build"
+  publish = "client/dist"
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
 
 [context.production.environment]
   NODE_ENV = "production"
 
-[dev]
-  command = "npm run dev"
-  port = 5173
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
