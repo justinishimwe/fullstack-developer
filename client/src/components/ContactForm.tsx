@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useSendMessage } from "@/hooks/use-portfolio";
-import { insertMessageSchema } from "@shared/schema";
+import { insertMessageSchema } from "@/schema";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";

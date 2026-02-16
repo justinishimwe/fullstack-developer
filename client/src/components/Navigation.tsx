@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X, Code2, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/hooks/use-theme";
 
 const navItems = [
   { name: "About", to: "about" },
@@ -14,6 +15,7 @@ const navItems = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +61,36 @@ export function Navigation() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+          
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="relative inline-flex items-center justify-center p-2.5 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-300 group"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <motion.div
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center"
+              >
+                <Moon size={18} />
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center justify-center"
+              >
+                <Sun size={18} />
+              </motion.div>
+            )}
+          </button>
+          
           <Link
             to="contact"
             smooth={true}
@@ -72,12 +104,25 @@ export function Navigation() {
         </div>
 
         {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-foreground p-2"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="p-2.5 rounded-full bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <Moon size={18} />
+            ) : (
+              <Sun size={18} />
+            )}
+          </button>
+          <button 
+            className="text-foreground p-2"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -102,6 +147,35 @@ export function Navigation() {
                   {item.name}
                 </Link>
               ))}
+              
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-3 py-4 px-3 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-300 font-medium"
+              >
+                {theme === "light" ? (
+                  <>
+                    <Moon size={20} />
+                    Dark Mode
+                  </>
+                ) : (
+                  <>
+                    <Sun size={20} />
+                    Light Mode
+                  </>
+                )}
+              </button>
+              
+              <Link
+                to="contact"
+                smooth={true}
+                duration={500}
+                onClick={() => setIsOpen(false)}
+              >
+                <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-3 rounded-lg font-semibold text-center transition-all shadow-lg hover:shadow-primary/25">
+                  Hire Me
+                </button>
+              </Link>
             </div>
           </motion.div>
         )}

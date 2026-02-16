@@ -5,13 +5,17 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ContactForm } from "@/components/ContactForm";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import ProjectModal from "@/components/ProjectModal";
+import type { Project } from "@/schema";
 import { Link as ScrollLink } from "react-scroll";
-import { ArrowDown, Code, Server, Database, Globe, Briefcase, Calendar, Download, Github, Mail } from "lucide-react";
+import { ArrowDown, Code, Server, Database, Globe, Briefcase, Calendar, Download, Github, Mail, ExternalLink, ArrowRight } from "lucide-react";
 
 export default function Home() {
   const { data: projects, isLoading: projectsLoading } = useProjects();
   const { data: skills, isLoading: skillsLoading } = useSkills();
   const { data: experiences, isLoading: experiencesLoading } = useExperiences();
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // Categorize skills
   const frontendSkills = skills?.filter(s => s.category === 'frontend') || [];
@@ -111,6 +115,289 @@ export default function Home() {
 
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-muted-foreground/50">
           <ArrowDown size={32} />
+        </div>
+      </section>
+
+      {selectedProject && (
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
+
+      {/* FEATURED PROJECTS - PREMIUM SHOWCASE */}
+      <section className="relative py-40 bg-background overflow-hidden">
+        {/* Premium Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-b from-primary/10 to-transparent rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-t from-accent/8 to-transparent rounded-full blur-3xl transform -translate-x-1/3 translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-gradient-to-r from-primary/5 via-accent/5 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 opacity-50"></div>
+        </div>
+
+        <div className="container-padding relative z-10">
+          {/* Premium Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-28 max-w-3xl mx-auto"
+          >
+            {/* Animated Badge */}
+            <motion.div 
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-primary/5 text-primary font-semibold text-sm mb-8 border border-primary/20 backdrop-blur-sm"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+            >
+              <motion.span 
+                className="relative flex h-2.5 w-2.5"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+              </motion.span>
+              ✨ Standout Projects
+            </motion.div>
+            
+            {/* Main Heading */}
+            <h2 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-8 font-display leading-tight">
+              Featured <br className="hidden md:block" />
+              <span className="text-gradient inline-block animate-gradient bg-gradient-to-r from-primary via-accent to-primary bg-clip-text">
+                Work
+              </span>
+            </h2>
+            
+            {/* Description */}
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              Showcasing premium full-stack projects that demonstrate technical excellence, creative design, and real-world impact
+            </p>
+          </motion.div>
+
+          {/* Projects Grid - Premium Layout */}
+          {projectsLoading ? (
+            <div className="flex justify-center py-40">
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                className="h-20 w-20 rounded-full border-4 border-primary/20 border-t-primary shadow-lg"
+              ></motion.div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+              {projects?.slice(0, 2).map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 60, rotateX: 20 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, delay: index * 0.25, ease: "easeOut" }}
+                  className="group relative h-auto md:h-[520px] rounded-3xl overflow-hidden cursor-pointer"
+                  onClick={() => setSelectedProject(project)}
+                >
+                  {/* Card Container with Premium Effects */}
+                  <div className="relative w-full h-full">
+                    {/* Background Image - Premium Quality */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img 
+                        src={project.imageUrl} 
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-1000 ease-out"
+                      />
+                    </div>
+
+                    {/* Advanced Overlay System */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/95 group-hover:via-black/40 transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-80 transition-all duration-700"></div>
+
+                    {/* Animated Shine Effect */}
+                    <motion.div 
+                      className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+                      initial={{ backgroundPosition: "200% 200%" }}
+                      animate={{ backgroundPosition: "-200% -200%" }}
+                      transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+                      style={{
+                        background: 'linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%)',
+                        backgroundSize: '200% 200%'
+                      }}
+                    ></motion.div>
+
+                    {/* Premium Border Glow */}
+                    <motion.div 
+                      className="absolute inset-0 rounded-3xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      animate={{ boxShadow: ["0 0 0 0 rgba(var(--color-primary), 0.3)", "0 0 20px 10px rgba(var(--color-primary), 0.1)"] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    ></motion.div>
+                  </div>
+
+                  {/* Premium Content Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12 backdrop-blur-0 group-hover:backdrop-blur-xs transition-all duration-500">
+                    {/* Header with Badge and Icon */}
+                    <motion.div 
+                      className="flex justify-between items-start"
+                      initial={{ opacity: 0, y: -20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      {/* Project Number Badge - Premium */}
+                      <motion.div
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className="relative group/badge"
+                      >
+                        <div className="absolute -inset-2 bg-gradient-to-r from-primary to-accent rounded-full opacity-0 group-hover/badge:opacity-100 blur transition-opacity duration-300"></div>
+                        <div className="relative px-5 py-3 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 text-white font-mono font-bold text-sm md:text-base">
+                          PROJECT {String(index + 1).padStart(2, '0')}
+                        </div>
+                      </motion.div>
+                      
+                      {/* Floating Action Icon */}
+                      <motion.div 
+                        className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110"
+                        initial={{ opacity: 0, scale: 0 }}
+                        whileInView={{ opacity: 0 }}
+                        animate={{ scale: [1, 1.15, 1] }}
+                      >
+                        <motion.div
+                          animate={{ x: [0, 4, 0] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                        >
+                          <ArrowRight size={28} className="text-white" />
+                        </motion.div>
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Main Content - Premium Typography */}
+                    <motion.div
+                      className="space-y-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                    >
+                      {/* Title with Premium Styling */}
+                      <div className="space-y-3">
+                        <h3 className="text-4xl md:text-5xl font-bold text-white font-display leading-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-primary group-hover:bg-clip-text transition-all duration-500">
+                          {project.title}
+                        </h3>
+                        
+                        {/* Divider */}
+                        <motion.div 
+                          className="h-1 bg-gradient-to-r from-primary to-accent rounded-full"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: "60px" }}
+                          transition={{ delay: 0.4, duration: 0.6 }}
+                        ></motion.div>
+                        
+                        {/* Description - Enhanced */}
+                        <p className="text-white/80 text-base md:text-lg leading-relaxed group-hover:text-white/95 transition-colors duration-300">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      {/* Tech Stack - Premium Tags */}
+                      <motion.div 
+                        className="flex flex-wrap gap-3 pt-2"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.35 }}
+                      >
+                        {project.techStack.map((tech, idx) => (
+                          <motion.div
+                            key={tech}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.4 + idx * 0.08 }}
+                            whileHover={{ scale: 1.1, y: -2 }}
+                            className="relative group/tech"
+                          >
+                            <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-accent/50 rounded-lg opacity-0 group-hover/tech:opacity-100 blur-sm transition-opacity duration-300"></div>
+                            <span className="relative px-4 py-2 text-xs md:text-sm font-bold rounded-lg bg-white/15 text-white/95 backdrop-blur-md border border-white/30 hover:bg-white/25 hover:border-white/50 transition-all duration-300 shadow-lg inline-block">
+                              {tech}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+
+                      {/* Premium Action Buttons */}
+                      <motion.div 
+                        className="flex gap-4 pt-6 flex-wrap"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        {project.demoUrl && (
+                          <motion.a 
+                            href={project.demoUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.08, y: -3 }}
+                            whileTap={{ scale: 0.92 }}
+                            className="relative group/btn overflow-hidden"
+                          >
+                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-xl opacity-75 group-hover/btn:opacity-100 blur transition-opacity duration-300"></div>
+                            <div className="relative px-7 py-3 bg-black rounded-xl border border-white/10">
+                              <span className="flex items-center gap-2 text-white font-bold">
+                                <ExternalLink size={18} />
+                                Live Demo
+                              </span>
+                            </div>
+                          </motion.a>
+                        )}
+                        {project.repoUrl && (
+                          <motion.a 
+                            href={project.repoUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.08, y: -3 }}
+                            whileTap={{ scale: 0.92 }}
+                            className="relative group/btn"
+                          >
+                            <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/5 rounded-xl opacity-0 group-hover/btn:opacity-100 blur transition-opacity duration-300"></div>
+                            <div className="relative px-7 py-3 bg-white/10 rounded-xl border border-white/40 hover:border-white/60 backdrop-blur-md transition-all duration-300">
+                              <span className="flex items-center gap-2 text-white font-bold">
+                                <Github size={18} />
+                                View Code
+                              </span>
+                            </div>
+                          </motion.a>
+                        )}
+                      </motion.div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {/* Premium CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="mt-24 text-center"
+          >
+            <ScrollLink to="projects" smooth={true} offset={-100} duration={500} className="cursor-pointer inline-block">
+              <motion.button 
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
+                className="relative group overflow-hidden"
+              >
+                {/* Button Glow */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary via-accent to-primary rounded-2xl opacity-50 group-hover:opacity-100 blur-lg transition-all duration-500 animate-pulse"></div>
+                
+                {/* Button Content */}
+                <div className="relative px-12 py-5 bg-gradient-to-r from-black to-black/80 rounded-2xl border border-white/10 group-hover:border-white/30 transition-all duration-300">
+                  <span className="flex items-center gap-3 text-white font-bold text-lg">
+                    Explore All Projects
+                    <motion.span
+                      animate={{ x: [0, 6, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    >
+                      <ArrowRight size={24} />
+                    </motion.span>
+                  </span>
+                </div>
+              </motion.button>
+            </ScrollLink>
+          </motion.div>
         </div>
       </section>
 

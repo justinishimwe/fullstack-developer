@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, ArrowRight } from "lucide-react";
-import type { Project } from "@shared/schema";
+import type { Project } from "@/schema";
 
 interface ProjectCardProps {
   project: Project;
