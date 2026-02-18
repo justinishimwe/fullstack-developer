@@ -1,20 +1,6 @@
-﻿[build]
-  command = "cd client && npm ci && npm run build"
+[build]
+  command = "cd client && npm install && npm run build"
   publish = "client/dist"
-
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[context.production.environment]
-  NODE_ENV = "production"
 
 [[redirects]]
   from = "/*"
